@@ -13,7 +13,7 @@ var sqlRegexp = regexp.MustCompile(`(\$\d+)|\?`)
 
 type gormLogger struct {
 	name   string
-	logger *logrus.Logger
+	logger logrus.FieldLogger
 }
 
 func (l *gormLogger) Print(values ...interface{}) {
@@ -68,11 +68,11 @@ func NewWithName(name string) *gormLogger {
 }
 
 // NewWithLogger Create new logger with custom logger
-func NewWithLogger(logger *logrus.Logger) *gormLogger {
+func NewWithLogger(logger logrus.FieldLogger) *gormLogger {
 	return NewWithNameAndLogger("db", logger)
 }
 
 // NewWithNameAndLogger Create new logger with custom name and logger
-func NewWithNameAndLogger(name string, logger *logrus.Logger) *gormLogger {
+func NewWithNameAndLogger(name string, logger logrus.FieldLogger) *gormLogger {
 	return &gormLogger{name: name, logger: logger}
 }
